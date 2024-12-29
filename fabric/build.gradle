@@ -1,7 +1,7 @@
 import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
-    id 'dev.architectury.loom' version '1.7-SNAPSHOT'
+    id 'fabric-loom' version '1.9-SNAPSHOT'
     //id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
@@ -13,10 +13,8 @@ configurations {
 }
 
 loom {
-    silentMojangMappingsLicense()
     accessWidenerPath = file("src/main/resources/modernui.accesswidener")
     runConfigs.each { it.setIdeConfigGenerated(true) } // Uncomment this if run configs not generated
-    addTaskBeforeRun(":${name}:classes")
 }
 
 repositories {
@@ -201,7 +199,7 @@ publishing {
             artifact(remapMavenJar.archiveFile) {
                 builtBy build
             }
-            artifact(sourcesJar.archiveFile) {
+            artifact(remapSourcesJar.archiveFile) {
                 builtBy build
                 classifier 'sources'
             }
